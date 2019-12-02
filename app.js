@@ -30,7 +30,8 @@ var courseSchema3=new mongoose.Schema({
 
 const Course = mongoose.model("Course3",courseSchema3);
 
-void courseSave(){
+function courseSave(){
+
 const course = new Course({
 	name:"Angular Course",
 	author:"Mosh",
@@ -46,3 +47,46 @@ course.save().then((data)=>{
 }
 
 courseSave();
+
+
+async function getCourses(){
+
+	const courses=await Course
+	.find({author:"Mosh",isPublished:true})
+	//.find({price:{$gte:10}})
+	//.find({price: {$in:[10,15,20]}})
+    
+
+    //find({isPublished:true,tags:'backend'})
+	//.find()
+	//.or([{author:"mosh"},{isPublished:true}])
+	.limit(10)
+	.sort({name:1})
+	.select({name:1,tags:1})
+
+console.log("courses",courses);
+}
+getCourses()
+
+
+async function updateCourse(id){
+	//two approach
+	 const course =await Course.findById(id);
+	 if(!course)return;
+
+	 course.isPublished=true
+	 course.author="vishal"
+
+
+	 await course().save();
+	// Approach Query first
+	// findbyId
+	// modify its properties
+	// save()
+
+	// approach first
+	// update directly
+	// get the updated document
+	//
+
+}
