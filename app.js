@@ -69,7 +69,7 @@ console.log("courses",courses);
 getCourses()
 
 
-async function updateCourse(id){
+async function updateCourse1(id){
 	//two approach
 	 const course =await Course.findById(id);
 	 if(!course)return;
@@ -89,4 +89,13 @@ async function updateCourse(id){
 	// get the updated document
 	//
 
+}
+async function updateCourse2(id){
+	const result = await Course.update({_id:id},{
+		$set:{
+			author:"mosh",
+			isPublished:true
+		}
+	});
+	console.log("result",result);
 }
